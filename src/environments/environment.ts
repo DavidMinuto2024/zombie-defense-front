@@ -3,6 +3,6 @@
  */
 export const environment = {
   production: true,
-  apiBaseUrl: 'https://localhost:7192',
-  apiKey: '',
+  apiBaseUrl: 'https://zombie-defense-ag.onrender.com',
+  apiKey: 'X-API-KEY-ZombieDefense206!',
 };
