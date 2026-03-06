@@ -1,0 +1,7 @@
+{
+  "projects": {
+    "prod": "zombie-defense-front"
+  },
+  "targets": {},
+  "etags": {}
+}
