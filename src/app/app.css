@@ -1,0 +1,7 @@
+/* Root host: full height, above background layers */
+:host {
+  display: block;
+  min-height: 100dvh;
+  position: relative;
+  z-index: 1;
+}

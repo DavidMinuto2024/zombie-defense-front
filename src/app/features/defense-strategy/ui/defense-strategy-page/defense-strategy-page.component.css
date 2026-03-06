@@ -1,0 +1,88 @@
+:host {
+  display: block;
+  min-height: 100dvh;
+}
+
+.defense-strategy-page {
+  padding: clamp(1.25rem, 5vw, 2.5rem);
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+/* Hero: clear hierarchy and spacing */
+.page-hero {
+  margin-bottom: 1.75rem;
+  animation: pageFadeIn 0.45s ease-out;
+}
+
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-title {
+  font-size: clamp(1.875rem, 4.5vw, 2.5rem);
+  margin: 0 0 0.5rem;
+  color: rgb(var(--zd-text));
+  letter-spacing: 0.04em;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.page-subtitle {
+  margin: 0;
+  font-size: 1rem;
+  color: rgb(var(--zd-text-muted));
+  line-height: 1.5;
+  max-width: 32ch;
+}
+
+/* Staggered reveal via class – robust when error toggles */
+.reveal-item {
+  animation: itemFadeIn 0.4s ease-out backwards;
+}
+
+.page-form-wrap { animation-delay: 0.08s; }
+.page-result-wrap { animation-delay: 0.16s; }
+.page-simulations-wrap { animation-delay: 0.24s; }
+.reveal-item.error { animation-delay: 0s; }
+
+@keyframes itemFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.error {
+  color: rgb(var(--zd-danger));
+  margin: 0.75rem 0 0;
+  padding: 0.75rem 1rem;
+  background: rgba(239, 68, 68, 0.08);
+  border-radius: var(--zd-radius);
+  border-left: 3px solid rgb(var(--zd-danger));
+  font-size: 0.9375rem;
+  animation: shake 0.45s ease-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+p[aria-live] {
+  color: rgb(var(--zd-text-muted));
+  margin-top: 0.5rem;
+  font-size: 0.9375rem;
+}

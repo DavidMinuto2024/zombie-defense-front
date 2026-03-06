@@ -1,0 +1,65 @@
+@if (loading()) {
+  <section class="strategy-result strategy-result--skeleton" aria-busy="true" aria-label="Loading strategy summary">
+    <div class="skeleton skeleton-title" aria-hidden="true"></div>
+    <div class="kpi-grid">
+      @for (card of [1, 2, 3]; track card) {
+        <div class="kpi-card kpi-card--skeleton">
+          <span class="skeleton skeleton-value"></span>
+          <span class="skeleton skeleton-label"></span>
+        </div>
+      }
+    </div>
+    <div class="skeleton skeleton-subtitle" aria-hidden="true"></div>
+    <div class="skeleton-table">
+      <div class="skeleton skeleton-row skeleton-row--header"></div>
+      @for (row of [1, 2, 3, 4]; track row) {
+        <div class="skeleton skeleton-row"></div>
+      }
+    </div>
+  </section>
+} @else if (strategy(); as s) {
+  <section class="strategy-result" aria-labelledby="strategy-summary">
+    <h2 id="strategy-summary" class="section-title">Strategy summary</h2>
+    <div class="kpi-grid">
+      <div class="kpi-card kpi-score">
+        <span class="kpi-value">{{ s.totalScore }}</span>
+        <span class="kpi-label">Total score</span>
+      </div>
+      <div class="kpi-card kpi-bullets">
+        <span class="kpi-value">{{ s.bulletsUsed }}</span>
+        <span class="kpi-label">Bullets used</span>
+      </div>
+      <div class="kpi-card kpi-time">
+        <span class="kpi-value">{{ s.secondsUsed }}<span class="kpi-unit">s</span></span>
+        <span class="kpi-label">Time used</span>
+      </div>
+    </div>
+    @if (s.eliminatedZombies.length > 0) {
+      <h3 class="subsection-title">Eliminated zombies</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Bullets needed</th>
+            <th>Shooting time</th>
+            <th>Score</th>
+            <th>Threat level</th>
+            <th>Kill count</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (z of s.eliminatedZombies; track z.zombieTypeId) {
+            <tr>
+              <td>{{ z.type }}</td>
+              <td>{{ z.bulletsNeeded }}</td>
+              <td>{{ z.shootingTime }}</td>
+              <td>{{ z.score }}</td>
+              <td>{{ z.threatLevel }}</td>
+              <td>{{ z.killCount }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+  </section>
+}

@@ -1,0 +1,31 @@
+<form class="strategy-form" (ngSubmit)="onSubmit()">
+  <div class="form-row">
+    <label class="label" for="bullets">Bullets available</label>
+    <input
+      id="bullets"
+      type="number"
+      min="1"
+      step="1"
+      class="input"
+      [ngModel]="bullets"
+      (ngModelChange)="onBulletsChange($event)"
+      (keydown)="blockInvalidNumberKey($event)"
+      name="bullets"
+    />
+  </div>
+  <div class="form-row">
+    <label class="label" for="seconds">Seconds available</label>
+    <input
+      id="seconds"
+      type="number"
+      min="1"
+      step="1"
+      class="input"
+      [ngModel]="secondsAvailable"
+      (ngModelChange)="onSecondsChange($event)"
+      (keydown)="blockInvalidNumberKey($event)"
+      name="secondsAvailable"
+    />
+  </div>
+  <button type="submit" class="btn-submit">Get optimal strategy</button>
+</form>

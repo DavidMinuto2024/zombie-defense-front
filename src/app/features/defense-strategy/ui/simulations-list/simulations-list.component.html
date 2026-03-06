@@ -1,0 +1,97 @@
+<section class="simulations-list" aria-labelledby="simulations-heading">
+  <h2 id="simulations-heading">Recent simulations</h2>
+  @if (simulations().length === 0) {
+    <p class="empty">No simulations yet.</p>
+  } @else {
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Time (s)</th>
+          <th>Bullets</th>
+          <th>Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (sim of paginatedSimulations(); track sim.id) {
+          <tr
+            class="row-selectable"
+            [class.row-selected]="selectedSimulation()?.id === sim.id"
+            role="button"
+            tabindex="0"
+            (click)="selectSimulation(sim)"
+            (keydown.enter)="selectSimulation(sim)"
+            (keydown.space)="selectSimulation(sim); $event.preventDefault()"
+          >
+            <td>{{ sim.date | date:dateFormat:bogotaTz }}</td>
+            <td>{{ sim.timeAvailable }}</td>
+            <td>{{ sim.bulletsAvailable }}</td>
+            <td>{{ sim.totalScore }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+
+    @if (simulations().length > pageSize) {
+      <nav class="pagination" aria-label="Simulations pagination">
+        <button
+          type="button"
+          class="pagination-btn"
+          [disabled]="currentPage() <= 1"
+          (click)="setPage(currentPage() - 1)"
+        >
+          Previous
+        </button>
+        <span class="pagination-info" aria-live="polite">
+          Page {{ currentPage() }} of {{ totalPages() }}
+        </span>
+        <button
+          type="button"
+          class="pagination-btn"
+          [disabled]="currentPage() >= totalPages()"
+          (click)="setPage(currentPage() + 1)"
+        >
+          Next
+        </button>
+      </nav>
+    }
+
+    @if (selectedSimulation(); as sim) {
+      <div class="detail-panel" aria-labelledby="detail-heading">
+        <h3 id="detail-heading" class="detail-title">Simulation detail</h3>
+        <p class="detail-summary">
+          {{ sim.date | date:dateFormat:bogotaTz }} · {{ sim.timeAvailable }} s · {{ sim.bulletsAvailable }} bullets · Score {{ sim.totalScore }}
+        </p>
+        <h4 class="detail-subtitle">Eliminated zombies</h4>
+        @if (sim.eliminatedZombies.length) {
+          <table class="detail-table">
+            <thead>
+              <tr>
+                <th>Type</th>
+                <th>Bullets needed</th>
+                <th>Shooting time</th>
+                <th>Score</th>
+                <th>Threat level</th>
+                <th>Kill count</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (z of sim.eliminatedZombies; track z.zombieTypeId) {
+                <tr>
+                  <td>{{ z.type }}</td>
+                  <td>{{ z.bulletsNeeded }}</td>
+                  <td>{{ z.shootingTime ?? '—' }}</td>
+                  <td>{{ z.score }}</td>
+                  <td>{{ z.threatLevel }}</td>
+                  <td>{{ z.killCount }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        } @else {
+          <p class="detail-empty">No eliminated zombies for this simulation.</p>
+        }
+      </div>
+    }
+  }
+</section>

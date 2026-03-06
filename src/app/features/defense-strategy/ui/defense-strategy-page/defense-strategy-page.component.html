@@ -1,0 +1,18 @@
+<div class="defense-strategy-page">
+  <header class="page-hero">
+    <h1 class="page-title">Defense strategy</h1>
+    <p class="page-subtitle">Set bullets and time to compute the optimal zombie elimination plan.</p>
+  </header>
+  <div class="page-form-wrap reveal-item">
+    <app-optimal-strategy-form (strategyRequest)="onStrategyRequest($event)" />
+  </div>
+  @if (error(); as err) {
+    <p class="error reveal-item" role="alert">{{ err }}</p>
+  }
+  <div class="page-result-wrap reveal-item">
+    <app-optimal-strategy-result [loading]="loading()" [strategy]="strategyResult()" />
+  </div>
+  <div class="page-simulations-wrap reveal-item">
+    <app-simulations-list [simulations]="simulations()" />
+  </div>
+</div>

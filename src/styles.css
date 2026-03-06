@@ -1,3 +1,102 @@
-/* You can add global styles to this file, and also import other style files */
-
+/* Tactical / command-center aesthetic – distinctive, not generic */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Share+Tech+Mono:wght@400;500&family=Rajdhani:wght@500;600;700&display=swap');
 @import 'tailwindcss';
+
+:root {
+  /* Dark theme – tactical palette */
+  --zd-bg: 12 13 16;
+  --zd-bg-elevated: 20 21 26;
+  --zd-bg-card: 24 25 32;
+  --zd-border: 42 45 55;
+  --zd-border-subtle: 32 34 42;
+  --zd-text: 240 241 248;
+  --zd-text-muted: 158 162 178;
+  --zd-text-dim: 108 112 128;
+  --zd-accent: 72 187 140;
+  --zd-accent-dim: 52 157 120;
+  --zd-danger: 239 68 68;
+  --zd-warning: 245 158 11;
+  --zd-info: 99 102 241;
+  --zd-radius: 0.5rem;
+  --zd-radius-md: 0.625rem;
+  --zd-radius-lg: 0.75rem;
+  --zd-transition: 0.2s ease;
+  --zd-transition-slow: 0.35s ease;
+  --font-display: 'Rajdhani', system-ui, sans-serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+  --font-mono: 'Share Tech Mono', ui-monospace, monospace;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.5;
+  color: rgb(var(--zd-text));
+  background: rgb(var(--zd-bg));
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Layered background: base + grid + noise for depth */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.15) 100%),
+    linear-gradient(90deg, rgba(var(--zd-border-subtle), 0.04) 1px, transparent 1px),
+    linear-gradient(rgba(var(--zd-border-subtle), 0.04) 1px, transparent 1px);
+  background-size: 100% 100%, 48px 48px, 48px 48px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: rgb(var(--zd-text));
+}
+
+a {
+  color: rgb(var(--zd-accent));
+  text-decoration: none;
+  transition: color var(--zd-transition);
+}
+
+a:hover {
+  color: rgb(var(--zd-accent-dim));
+}
+
+/* Focus visible for keyboard / a11y – accent ring */
+:focus-visible {
+  outline: 2px solid rgb(var(--zd-accent));
+  outline-offset: 2px;
+}
+
+button:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid rgb(var(--zd-accent));
+  outline-offset: 2px;
+}
